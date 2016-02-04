@@ -14,7 +14,7 @@ public class Person
 // ----------------------------------
 // Builder
 // ----------------------------------
-	public Person Person(String name, int age)
+	public Person(String name, int age)
 	{
 		this.name	= new String(name);
 		this.age	= age;
@@ -23,5 +23,21 @@ public class Person
 // ----------------------------------
 // Local methods
 // ----------------------------------
-	
+	public void update(Person newVersion)
+	{
+		this.name	= new String(newVersion.name);
+		this.age	= newVersion.age;
+	}
+
+	public boolean equals(Person p)
+	{
+		if (!this.name.equals(p.name))	return false;
+		if (this.age != p.age)			return false;
+		return true;
+	}
+
+	public boolean equals(String personName)
+	{
+		return (this.name.equals(this.name));
+	}
 }
