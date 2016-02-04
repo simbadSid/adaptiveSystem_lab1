@@ -1,4 +1,5 @@
-import java.util.LinkedList;
+import java.util.HashMap;
+
 
 
 
@@ -9,13 +10,36 @@ public class Catalog
 // ----------------------------------
 // Attributes
 // ----------------------------------
-	private LinkedList<Person>	personList;
+	private HashMap<String, Person>	personList;
+
 // ----------------------------------
 // Builder
 // ----------------------------------
 	public Catalog()
 	{
-		this.personList	= new LinkedList<Person>();
+		this.personList	= new HashMap<String, Person>();
+	}
+
+// ----------------------------------
+// Local methods
+// ----------------------------------
+	public static void main(String[] args)
+	{
+		Catalog c = new Catalog();
+
+		System.out.println("Initial catalog:");
+		c.print();
+
+		c.register(new Person ("Karima",	2));
+		c.register(new Person ("bigboss",	3));
+		c.register(new Person ("nanak",		4));
+
+		System.out.println("\n\n\nIntermediate catalog:");
+		c.print();
+
+		c.delete("bigboss");
+		c.delete("nanak");
+		System.out.println("\n\n\nFinal catalog:");
 	}
 
 // ----------------------------------
@@ -23,17 +47,17 @@ public class Catalog
 // ----------------------------------
 	public void register(Person p)
 	{
-		this.personList.add(p);
+		this.personList.put(p.getName(), p);
 	}
 
 	public boolean update(String name, Person newPerson)
 	{
 		Person toUpdate = null;
 
-		for (Person p:this.personList)
+		for (String n:this.personList.keySet())
 		{
-			if (!p.equals(name))	continue;
-			toUpdate = p;
+			if (!n.equals(name))	continue;
+			toUpdate = this.personList.get(n);
 			break;
 		}
 		if (toUpdate == null) return false;
@@ -44,12 +68,28 @@ public class Catalog
 
 	public boolean delete(String name)
 	{
-		for (int i=0; i<this.personList.size(); i++)
+		for (String n:this.personList.keySet())
 		{
-			if (!this.personList.get(i).equals(name))	continue;
-			this.personList.remove(i);
+			if (!n.equals(name))	continue;
+			this.personList.remove(n);
 			return true;
 		}
 		return false;
+	}
+
+	public void print()
+	{
+		if (this.personList.isEmpty())
+		{
+			System.out.println("***Empty  catalog ***");
+			return;
+		}
+
+		for (String name:this.personList.keySet())
+		{
+			Person p = this.personList.get(name);
+			System.out.println("-------------------------------");
+			System.out.println(p);
+		}
 	}
 }

@@ -21,6 +21,12 @@ public class Person
 	}
 
 // ----------------------------------
+// Accesser
+// ----------------------------------
+	public String	getName	()	{return new String(this.name);}
+	public int		getAge	()	{return this.age;}
+
+// ----------------------------------
 // Local methods
 // ----------------------------------
 	public void update(Person newVersion)
@@ -39,5 +45,15 @@ public class Person
 	public boolean equals(String personName)
 	{
 		return (this.name.equals(this.name));
+	}
+
+	public String toString()
+	{
+		String res = "";
+
+		res += "Name:\t "	+ this.name	+ "\n";
+		res += "Age:\t"		+ this.age;
+
+		return res;
 	}
 }
